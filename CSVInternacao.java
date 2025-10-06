@@ -1,0 +1,139 @@
+package Trabalho_OO;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class CSVInternacao extends CSV_Geral{
+
+    @Override
+    public void SalvarCSV(Object obj) {
+
+        Internacao internacao = (Internacao) obj;
+
+        String File = "Internações.csv";
+
+        try(BufferedReader check = new BufferedReader(new FileReader(File))){
+
+            String TextoTemp;
+
+            while((TextoTemp= check.readLine())!=null){
+
+                String[] find = TextoTemp.split(";");
+
+                if(find.length > 0 && find[0].equals(internacao.getPaciente().getNome())
+                        && find[2].equals(internacao.getDataDeEntrada().toString())){
+
+                    System.out.println("Paciente Já Foi Internado!");
+
+                    return;
+
+                }
+
+                LocalDate entradaExistente = LocalDate.parse(find[2]);
+                LocalDate saidaExistente = LocalDate.parse(find[3]);
+
+                boolean QuartoOcupado = find[5].equals(internacao.getQuarto()) &&
+                        (internacao.getDataDeEntrada().isBefore(saidaExistente) &&
+                                internacao.getDataDeSaída().isAfter(entradaExistente));
+
+                if(QuartoOcupado){
+
+                    System.out.println("Quarto Já Está Ocupado!");
+                    return;
+
+                }
+
+            }
+
+        }
+        catch(IOException e){
+
+            System.out.println("Erro ao Abrir o Arquivo" + e.getMessage());
+
+        }
+
+        try(FileWriter CSV = new FileWriter(File,true)){
+
+            CSV.write(
+
+                    internacao.getPaciente().getCPF() + ";" +
+                            internacao.getMedicoResponsável().getNome() + ";" +
+                            internacao.getDataDeEntrada() + ";" +
+                            internacao.getDataDeSaída() + ";" +
+                            internacao.getStatus() + ";" +
+                            internacao.getQuarto() + ";" +
+                            internacao.getCustoInternação() + "\n"
+
+            );
+
+            System.out.println("Internação Foi Cadastrada!");
+
+        }
+        catch(IOException e){
+
+            System.out.println("Erro ao Abrir o Arquivo" + e.getMessage());
+
+        }
+
+    }
+
+    @Override
+    public Object buscarCSV(String Nome) {
+        return null;
+    }
+
+    public List<Internacao> BuscarInternacoesPorPaciente(String CPF){
+
+        List<Internacao> internacoes = new ArrayList<>();
+
+        String File = "Internações.csv";
+
+        try(BufferedReader Check = new BufferedReader(new FileReader(File))){
+
+            String TextoTemp;
+
+            while((TextoTemp=Check.readLine())!=null){
+
+                String[] Find = TextoTemp.split(";");
+
+                if(Find[0].equals(CPF)){
+
+                    String CPFpaciente = Find[0];
+                    String NomeMedicoResponsavel = Find[1];
+                    LocalDate DataDeEntrada = LocalDate.parse(Find[2]);
+                    LocalDate DataDeSaida = LocalDate.parse(Find[3]);
+                    String Status = Find[4];
+                    String Quarto = Find[5];
+                    double Preco = Double.parseDouble(Find[6]);
+
+                    CSVPaciente csvPaciente = new CSVPaciente();
+                    Paciente paciente = (Paciente) csvPaciente.buscarCSV(CPFpaciente);
+
+                    CSVMedico csvMedico = new CSVMedico();
+                    Medico MedicoResponsavel = (Medico) csvMedico.buscarCSV(NomeMedicoResponsavel);
+
+                    internacoes.add(new Internacao(paciente,MedicoResponsavel,DataDeEntrada,DataDeSaida,Status,Quarto,Preco));
+
+                }
+
+            }
+
+        }
+        catch(IOException e){
+
+            System.out.println("Erro ao Abrir o Arquivo" + e.getMessage());
+
+        }
+
+        return internacoes;
+
+    }
+
+}
+

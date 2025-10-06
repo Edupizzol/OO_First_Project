@@ -6,7 +6,7 @@ public class Medico extends Pessoa{
     private String EmailProfissional;
     private String CRM;
 
-    Medico(String Nome, String CPF, int Idade, String Genero, String Telefone, String EstadoCivil, String Especialidade, String EmailProfissional, String CRM){
+    Medico(String Nome, String CPF, int Idade, String Genero, String Telefone, String EstadoCivil, String Especialidade,  String CRM, String EmailProfissional){
 
         super(Nome,CPF,Idade,Genero,Telefone,EstadoCivil);
 
@@ -46,6 +46,7 @@ public class Medico extends Pessoa{
         System.out.printf("Especialidade: %s\n", getEspecialidade());
         System.out.printf("CRM: %s\n", getCRM());
         System.out.printf("Email: %s\n", getEmailProfissional());
+        System.out.println("=====================");
 
     }
 

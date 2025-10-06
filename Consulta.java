@@ -14,13 +14,13 @@ public class Consulta {
     private LocalDate data;
     private LocalTime horario;
 
-    Consulta(Paciente paciente, Medico medico, double Preço, PlanoDeSaude planoDeSaude, String TipoConsulta, LocalDate data, LocalTime horario){
+    Consulta(String TipoConsulta, Paciente paciente, Medico medico, double Preço, PlanoDeSaude planoDeSaude, LocalDate data, LocalTime horario){
 
+        this.TipoConsulta = TipoConsulta;
         this.paciente = paciente;
         this.medico = medico;
         this.Preço = Preço;
         this.planoDeSaude = planoDeSaude;
-        this.TipoConsulta = TipoConsulta;
         this.data = data;
         this.horario = horario;
 

@@ -1,7 +1,9 @@
 package Trabalho_OO;
-
 import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CSV {
 
@@ -107,7 +109,6 @@ public class CSV {
         }
 
         public static void CSV_Historico(Historico Historico) {
-
 
             String FileName = Historico.getConsulta().getPaciente().getNome().replaceAll("\\s","_") + ".csv";
 
@@ -285,6 +286,75 @@ public class CSV {
 
         }
 
+        public static void InternacaoCSV(Internacao internacao){
+
+            String file = internacao.getPaciente().getNome().replaceAll("\\s", "_") + "_internações.csv";
+
+            try(BufferedReader check = new BufferedReader(new FileReader(file))){
+
+                String TextoTemp;
+
+                while((TextoTemp= check.readLine())!=null){
+
+                    String[] find = TextoTemp.split(";");
+
+                    if(find.length > 0 && find[0].equals(internacao.getPaciente().getNome())
+                               && find[2].equals(internacao.getDataDeEntrada().toString())){
+
+                        System.out.println("Paciente Já Foi Internado!");
+
+                        return;
+
+                    }
+
+                    LocalDate entradaExistente = LocalDate.parse(find[2]);
+                    LocalDate saidaExistente = LocalDate.parse(find[3]);
+
+                    boolean QuartoOcupado = find[5].equals(internacao.getQuarto()) &&
+                            (internacao.getDataDeEntrada().isBefore(saidaExistente) &&
+                                    internacao.getDataDeSaída().isAfter(entradaExistente));
+
+                    if(QuartoOcupado){
+
+                        System.out.println("Quarto Já Está Ocupado!");
+                        return;
+
+                    }
+
+                }
+
+            }
+            catch(IOException e){
+
+                System.out.println("Erro ao Abrir o Arquivo" + e.getMessage());
+
+            }
+
+            try(FileWriter CSV = new FileWriter(file,true)){
+
+                CSV.write(
+
+                        internacao.getPaciente().getNome() + ";" +
+                                internacao.getMedicoResponsável().getNome() + ";" +
+                                internacao.getDataDeEntrada() + ";" +
+                                internacao.getDataDeSaída() + ";" +
+                                internacao.getStatus() + ";" +
+                                internacao.getQuarto() + ";" +
+                                internacao.getCustoInternação() + "\n"
+
+                );
+
+                System.out.println("Internação Foi Cadastrada!");
+
+            }
+            catch(IOException e){
+
+                System.out.println("Erro ao Abrir o Arquivo" + e.getMessage());
+
+            }
+
+        }
+
         public static Paciente BuscaPaciente(String CPF){
 
             String File = "Pacientes.csv";
@@ -334,7 +404,7 @@ public class CSV {
 
                 String TextoTemp;
 
-                while((TextoTemp= Check.readLine())!=null){
+                while((TextoTemp = Check.readLine())!=null){
 
                     String[] Find = TextoTemp.split(";");
 
@@ -347,10 +417,10 @@ public class CSV {
                         String telefone = Find[4];
                         String estadoCivil = Find[5];
                         String especialidade = Find[6];
-                        String emailProfissional = Find[7];
-                        String crm = Find[8];
+                        String crm = Find[7];
+                        String emailProfissional = Find[8];
 
-                        return new Medico(nome, cpf, idade, genero, telefone, estadoCivil, especialidade, emailProfissional, crm);
+                        return new Medico(nome, cpf, idade, genero, telefone, estadoCivil, especialidade, crm, emailProfissional);
 
                     }
 
@@ -365,6 +435,94 @@ public class CSV {
             }
 
             return null;
+
+        }
+
+        public static PlanoDeSaude Busca_PlanoDeSaude(String Nome){
+
+            String File = "PlanoDeSaude.csv";
+
+            try(BufferedReader Check = new BufferedReader(new FileReader(File))){
+
+                String TextoTemp;
+
+                while((TextoTemp = Check.readLine())!=null){
+
+                    String[] Find = TextoTemp.split(";");
+
+                    if(Find.length>1 && Find[0].equals(Nome)){
+
+                        String NomeP = Find[0];
+                        double Desconto = Double.parseDouble(Find[1]);
+
+                        return new PlanoDeSaude(NomeP,Desconto);
+
+                    }
+
+
+                }
+
+            }
+            catch(IOException e){
+
+                System.out.println("Erro ao Ler Arquivo" + e.getMessage());
+
+            }
+
+            return null;
+
+        }
+
+        public static List<Consulta> BuscaHistorico(String CPF){
+
+            Paciente paciente = BuscaPaciente(CPF);
+
+            if(paciente==null){
+
+                System.out.println("Paciente Não Existe!");
+                return new ArrayList<>();
+
+            }
+
+            String file = paciente.getNome().replaceAll("\\s", "_") + ".csv";
+            List<Consulta> historico = new ArrayList<>();
+
+            try(BufferedReader Check = new BufferedReader(new FileReader(file))){
+
+                String TextoTemp;
+
+                while((TextoTemp=Check.readLine())!=null){
+
+                    String[] Find = TextoTemp.split(";");
+
+                    if (Find.length >= 7) {
+                        String tipo = Find[0];
+                        String nomeMedico = Find[1];
+                        String nomePaciente = Find[2];
+                        double preco = Double.parseDouble(Find[3]);
+                        String plano = Find[4];
+                        LocalDate data = LocalDate.parse(Find[5]);
+                        LocalTime horario = LocalTime.parse(Find[6]);
+
+                        Medico medico = BuscaMedico(nomeMedico);
+
+                        PlanoDeSaude planoSaude = Busca_PlanoDeSaude(plano);
+
+                        Consulta consulta = new Consulta(tipo, paciente, medico, preco, planoSaude, data, horario);
+
+                        historico.add(consulta);
+
+                    }
+                }
+
+            }
+            catch(IOException e){
+
+                System.out.println("Erro ao Ler Arquivo" + e.getMessage());
+
+            }
+
+            return historico;
 
         }
 

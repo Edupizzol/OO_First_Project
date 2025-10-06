@@ -1,4 +1,7 @@
 package Trabalho_OO;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Paciente extends Pessoa{
 
@@ -6,6 +9,8 @@ public class Paciente extends Pessoa{
     private String TipoSanguineo;
     private double Altura;
     private double Peso;
+    private List<Consulta> historicoConsultas;
+    private List<Internacao> historicoInternacoes;
 
     Paciente(String Nome, String CPF, int Idade, String Genero, String Telefone, String Estado_Civil, String TipoSanguineo, String PlanoDeSaude, double Altura, double Peso){
 
@@ -15,6 +20,18 @@ public class Paciente extends Pessoa{
         this.TipoSanguineo = TipoSanguineo;
         this.Altura = Altura;
         this.Peso = Peso;
+        this.historicoConsultas = new ArrayList<>();
+        this.historicoInternacoes = new ArrayList<>();
+
+    }
+
+    public void CarregarHistorico(){
+
+        CSVConsulta csvConsulta = new CSVConsulta();
+        this.historicoConsultas = csvConsulta.buscarConsultasPorPaciente(getCPF());
+
+        CSVInternacao csvInternacao = new CSVInternacao();
+        this.historicoInternacoes = csvInternacao.BuscarInternacoesPorPaciente(getCPF());
 
     }
 
@@ -55,6 +72,56 @@ public class Paciente extends Pessoa{
         System.out.printf("Plano de Saude: %s\n", getPlanoDeSaude());
         System.out.printf("Altura: %.2f\n", getAltura());
         System.out.printf("Peso: %.2f\n", getPeso());
+        System.out.println("========================");
+
+        if(historicoConsultas.isEmpty()){
+
+            System.out.println("Esse Paciente não Possui Consultas Cadastradas Ainda!");
+
+        }
+        else{
+
+            System.out.println("===========Consultas===========");
+
+            for(Consulta consulta : historicoConsultas){
+
+                System.out.printf("Tipo %s:\nPaciente: %s\nMédico Responsável: %s\nData: %s\nHorário: %s\nPreço: %.2f\n\n",
+
+                        consulta.getTipoConsulta(),
+                        consulta.getPaciente().getNome(),
+                        consulta.getMedico().getNome(),
+                        consulta.getData().toString(),
+                        consulta.getHorario().toString(),
+                        consulta.getPreço()
+
+                );
+            }
+        }
+
+        if(historicoInternacoes.isEmpty()){
+
+            System.out.println("Paciente não Possui Internações Cadastradas!");
+
+        }
+        else{
+
+            System.out.println("===========Internações===========");
+
+            for(Internacao internacao : historicoInternacoes){
+
+                System.out.printf("Paciente: %s\nMédico Responsável: %s\nData de Entrada: %s\nData de Saída: %s\nStatus: %s\nQuarto: %s\nCusto da Internação: %.2f\n\n",
+
+                        internacao.getPaciente().getNome(),
+                        internacao.getMedicoResponsável().getNome(),
+                        internacao.getDataDeEntrada().toString(),
+                        internacao.getDataDeSaída().toString(),
+                        internacao.getStatus(),
+                        internacao.getQuarto(),
+                        internacao.getCustoInternação()
+
+                );
+            }
+        }
 
     }
 
