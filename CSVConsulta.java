@@ -8,6 +8,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletionService;
+import java.lang.Math;
 
 public class CSVConsulta extends CSV_Geral{
 
@@ -96,9 +97,9 @@ public class CSVConsulta extends CSV_Geral{
 
                     String tipoConsulta = Find[0];
                     Medico medico = new Medico(Find[1], "", 0, "", "", "", "", "", "");
-                    Paciente paciente = new Paciente("", cpfPaciente, 0, "", "", "", "", "", 0, 0);
+                    Paciente paciente = new Paciente("", cpfPaciente, 0, "", "", "", "", null, 0, 0);
                     double preco = Double.parseDouble(Find[3]);
-                    PlanoDeSaude plano = new PlanoDeSaude(Find[4], 0);
+                    PlanoDeSaude plano = null;
                     LocalDate dataConsulta = LocalDate.parse(Find[5]);
                     LocalTime horario = LocalTime.parse(Find[6]);
 
@@ -134,9 +135,9 @@ public class CSVConsulta extends CSV_Geral{
 
                     String tipoConsulta = Find[0];
                     Medico medico = new Medico(Nome, "", 0, "", "", "", "", "", "");
-                    Paciente paciente = new Paciente("", Find[2], 0, "", "", "", "", "", 0, 0);
+                    Paciente paciente = new Paciente("", Find[2], 0, "", "", "", "", null, 0, 0);
                     double preco = Double.parseDouble(Find[3]);
-                    PlanoDeSaude plano = new PlanoDeSaude(Find[4], 0);
+                    PlanoDeSaude plano = null;
                     LocalDate dataConsulta = LocalDate.parse(Find[5]);
                     LocalTime horario = LocalTime.parse(Find[6]);
 
@@ -154,6 +155,56 @@ public class CSVConsulta extends CSV_Geral{
         }
 
         return consultas;
+
+    }
+
+    public boolean ConsultaPossivel(Consulta consulta) {
+
+        String File = "Consultas.csv";
+
+            try(BufferedReader Check = new BufferedReader(new FileReader(File))){
+
+                String TextoTemp;
+
+                while((TextoTemp = Check.readLine()) != null){
+
+                    String[] Find = TextoTemp.split(";");
+
+                    LocalDate Data = LocalDate.parse(Find[5]);
+                    LocalTime Hora = LocalTime.parse(Find[6]);
+
+                    if(Data.equals(consulta.getData())) {
+
+                        long Minutos = Math.abs(java.time.Duration.between(Hora, consulta.getHorario()).toMinutes());
+
+                        if (Minutos < 60) {
+
+                            if (Find[2].equals(consulta.getPaciente().getCPF())) {
+
+                                System.out.println("Paciente já Possui Consulta Próximo Desse Horário!");
+                                return true;
+
+                            }
+
+                            if (Find[1].equals(consulta.getMedico().getNome())) {
+
+                                System.out.println("Médico já Possui Consulta Próximo Desse Horário!");
+                                return true;
+
+                            }
+
+                        }
+                    }
+
+                }
+            }
+            catch(IOException e){
+
+                System.out.println("Erro ao ler arquivo: " + e.getMessage());
+
+            }
+
+            return false;
 
     }
 

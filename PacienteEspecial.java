@@ -1,0 +1,23 @@
+package Trabalho_OO;
+
+public class PacienteEspecial extends Paciente{
+
+    PacienteEspecial(String nome, String cpf, int idade){
+
+        super(nome, cpf, idade, "", "", "", "", null, 0, 0);
+
+    }
+
+    public PacienteEspecial(String nome, String cpf, int idade, String planoDeSaude) {
+
+        super(nome, cpf, idade, "", "", "", "", planoDeSaude, 0, 0);
+
+    }
+
+    public double getDescontoIdade(double Preco){
+
+        return Preco*0.10;
+
+    }
+
+}

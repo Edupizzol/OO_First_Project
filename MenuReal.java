@@ -87,6 +87,8 @@ public class MenuReal extends Menu{
 
         String PlanoDeSaude;
 
+        PlanoDeSaude planoDeSaude;
+
         String Plano = sc.nextLine();
 
         if(Plano.equalsIgnoreCase("Sim")){
@@ -95,10 +97,13 @@ public class MenuReal extends Menu{
 
             PlanoDeSaude = sc.nextLine();
 
+            CSVPlanoDeSaude csvPlanoDeSaude = new CSVPlanoDeSaude();
+            planoDeSaude = (PlanoDeSaude) csvPlanoDeSaude.buscarCSV(PlanoDeSaude);
+
         }
         else{
 
-            PlanoDeSaude = "Sem Plano de Saúde!";
+            planoDeSaude = null;
 
         }
 
@@ -112,7 +117,19 @@ public class MenuReal extends Menu{
         double Peso = sc.nextDouble();
         sc.nextLine();
 
-        Paciente paciente = new Paciente(Nome, CPF, Idade, Genero, Telefone, EstadoCivil, TipoSanguíneo, PlanoDeSaude, Altura, Peso);
+        Paciente paciente = new Paciente(Nome, CPF, Idade, Genero, Telefone, EstadoCivil, TipoSanguíneo, planoDeSaude, Altura, Peso);
+
+
+        if (Idade < 12 || Idade > 60) {
+
+            paciente = new PacienteEspecial(paciente.getNome(), paciente.getCPF(), Idade);
+
+        }
+        else if (paciente.getPlanoDeSaude() != null){
+
+            paciente = new PacienteEspecial(paciente.getNome(), paciente.getCPF(), Idade, paciente.getPlanoDeSaude());
+
+        }
 
         CSVPaciente csvPaciente = new CSVPaciente();
         csvPaciente.SalvarCSV(paciente);
@@ -321,10 +338,23 @@ public class MenuReal extends Menu{
 
         Consulta consulta = new Consulta(TipoConsulta, paciente, medico, preço, planoDeSaude, data, horario);
 
-        CSVConsulta csvConsulta = new CSVConsulta();
-        csvConsulta.SalvarCSV(consulta);
+        medico.addConsulta(consulta);
+        paciente.getHistoricoConsultas().add(consulta);
 
-        System.out.println("Consulta Marcada!");
+        CSVConsulta csvConsulta = new CSVConsulta();
+
+        if(csvConsulta.ConsultaPossivel(consulta)==false){
+
+            csvConsulta.SalvarCSV(consulta);
+
+            System.out.println("Consulta Marcada!");
+
+        }
+        else{
+
+            System.out.println("Conflito Detectado! Consulta não é Possível");
+
+        }
 
     }
 
@@ -409,9 +439,21 @@ public class MenuReal extends Menu{
         Internacao internacao = new Internacao(paciente,medicoResponsavel,dataEntrada,dataSaida,Status,Quarto,PrecoInternacao);
 
         CSVInternacao csvInternacao = new CSVInternacao();
-        csvInternacao.SalvarCSV(internacao);
 
-        System.out.println("Consulta Cadastrada com Sucesso!");
+        if(csvInternacao.InternacaoPossivel(internacao)==false){
+
+            paciente.getHistoricoInternacoes().add(internacao);
+
+            csvInternacao.SalvarCSV(internacao);
+
+            System.out.println("Internação Cadastrada com Sucesso!");
+
+        }
+        else{
+
+            System.out.println("Leito já Ocupado!");
+
+        }
 
     }
 

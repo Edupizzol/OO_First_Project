@@ -94,7 +94,10 @@ public class CSVPaciente extends CSV_Geral{
                         double altura = Double.parseDouble(Find[8]);
                         double peso = Double.parseDouble(Find[9]);
 
-                        Paciente paciente = new Paciente(nome, CPF, idade, genero, telefone, estadoCivil, tipoSanguineo, planoDeSaude, altura, peso);
+                        CSVPlanoDeSaude csvPlanoDeSaude = new CSVPlanoDeSaude()
+                        PlanoDeSaude planoDeSaude1 = (PlanoDeSaude) csvPlanoDeSaude.buscarCSV(planoDeSaude);
+
+                        Paciente paciente = new Paciente(nome, CPF, idade, genero, telefone, estadoCivil, tipoSanguineo, planoDeSaude1, altura, peso);
 
                         paciente.CarregarHistorico();
 

@@ -5,14 +5,14 @@ import java.util.List;
 
 public class Paciente extends Pessoa{
 
-    private String PlanoDeSaude;
+    private PlanoDeSaude PlanoDeSaude;
     private String TipoSanguineo;
     private double Altura;
     private double Peso;
     private List<Consulta> historicoConsultas;
     private List<Internacao> historicoInternacoes;
 
-    Paciente(String Nome, String CPF, int Idade, String Genero, String Telefone, String Estado_Civil, String TipoSanguineo, String PlanoDeSaude, double Altura, double Peso){
+    Paciente(String Nome, String CPF, int Idade, String Genero, String Telefone, String Estado_Civil, String TipoSanguineo, PlanoDeSaude PlanoDeSaude, double Altura, double Peso){
 
         super(Nome, CPF, Idade, Genero, Telefone, Estado_Civil);
 
@@ -35,7 +35,19 @@ public class Paciente extends Pessoa{
 
     }
 
-    public String getPlanoDeSaude(){
+    public List<Consulta> getHistoricoConsultas(){
+
+        return this.historicoConsultas;
+
+    }
+
+    public List<Internacao> getHistoricoInternacoes(){
+
+        return this.historicoInternacoes;
+
+    }
+
+    public PlanoDeSaude getPlanoDeSaude(){
 
         return this.PlanoDeSaude;
 

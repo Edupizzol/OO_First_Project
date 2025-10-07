@@ -135,5 +135,47 @@ public class CSVInternacao extends CSV_Geral{
 
     }
 
+    public Boolean InternacaoPossivel(Internacao internacao){
+
+        String File = "Internações.csv";
+
+        try(BufferedReader Check = new BufferedReader(new FileReader(File))){
+
+            String TextoTemp;
+
+            while((TextoTemp= Check.readLine())!=null){
+
+                String[] Find = TextoTemp.split(";");
+
+                String Quarto = Find[5];
+                LocalDate Inicio = LocalDate.parse(Find[2]);
+                LocalDate Fim = LocalDate.parse(Find[3]);
+
+                if(Quarto.equals(internacao.getQuarto())){
+
+                    if(!(internacao.getDataDeSaída().isBefore(Inicio) || internacao.getDataDeEntrada().isAfter(Fim))){
+
+                        System.out.println("Esse Leito já Está Ocupado, não é Possível Marcar a Internação");
+
+                        return true;
+
+                    }
+
+                }
+
+            }
+
+
+        }
+        catch(IOException e){
+
+            System.out.println("Erro ao Abrir o Arquivo" + e.getMessage());
+
+        }
+
+        return false;
+
+    }
+
 }
 
