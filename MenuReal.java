@@ -127,7 +127,7 @@ public class MenuReal extends Menu{
         }
         else if (paciente.getPlanoDeSaude() != null){
 
-            paciente = new PacienteEspecial(paciente.getNome(), paciente.getCPF(), Idade, paciente.getPlanoDeSaude());
+            paciente = new PacienteEspecial(paciente.getNome(), paciente.getCPF(), Idade);
 
         }
 
@@ -338,10 +338,20 @@ public class MenuReal extends Menu{
 
         Consulta consulta = new Consulta(TipoConsulta, paciente, medico, preço, planoDeSaude, data, horario);
 
+        double precoFinal = preço; // valor inicial
+
+        if(paciente instanceof PacienteEspecial && planoDeSaude != null){
+
+            precoFinal=consulta.Descontar();
+            consulta.setPreço(precoFinal);
+
+        }
+
         medico.addConsulta(consulta);
         paciente.getHistoricoConsultas().add(consulta);
 
         CSVConsulta csvConsulta = new CSVConsulta();
+        csvConsulta.SalvarCSV(consulta);
 
         if(csvConsulta.ConsultaPossivel(consulta)==false){
 
@@ -436,7 +446,15 @@ public class MenuReal extends Menu{
         double PrecoInternacao = sc.nextDouble();
         sc.nextLine();
 
-        Internacao internacao = new Internacao(paciente,medicoResponsavel,dataEntrada,dataSaida,Status,Quarto,PrecoInternacao);
+        double PrecoFinal = PrecoInternacao;
+
+        if(paciente instanceof PacienteEspecial && paciente.getPlanoDeSaude() != null){
+
+            PrecoFinal = PrecoInternacao * (1 - paciente.getPlanoDeSaude().getDesconto());
+
+        }
+
+        Internacao internacao = new Internacao(paciente,medicoResponsavel,dataEntrada,dataSaida,Status,Quarto,PrecoFinal);
 
         CSVInternacao csvInternacao = new CSVInternacao();
 

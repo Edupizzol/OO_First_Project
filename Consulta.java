@@ -75,4 +75,10 @@ public class Consulta {
 
     }
 
+    public void setPreço(double preco) {
+
+        this.Preço = preco;
+
+    }
+
 }

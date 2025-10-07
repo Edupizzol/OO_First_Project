@@ -65,7 +65,6 @@ public class Internacao {
 
     }
 
-    //metodo que acaba a internação em um certo dia
     public void ACABAR(LocalDate DataDeSaida){
 
         this.DataDeSaída = DataDeSaida;
@@ -73,7 +72,6 @@ public class Internacao {
 
     }
 
-    //metodo que cancela a internação
     public void CANCELAR(){
 
         this.Status = "Cancelada";

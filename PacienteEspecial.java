@@ -8,7 +8,7 @@ public class PacienteEspecial extends Paciente{
 
     }
 
-    public PacienteEspecial(String nome, String cpf, int idade, String planoDeSaude) {
+    public PacienteEspecial(String nome, String cpf, int idade, PlanoDeSaude planoDeSaude) {
 
         super(nome, cpf, idade, "", "", "", "", planoDeSaude, 0, 0);
 
