@@ -181,6 +181,7 @@ public class MenuReal extends Menu{
 
         if(paciente!=null){
 
+            paciente.CarregarHistorico();
             paciente.ShowPaciente();
 
         }
@@ -203,6 +204,7 @@ public class MenuReal extends Menu{
 
         if(medico!=null){
 
+            medico.CarregarConsultas();
             medico.ShowMedico();
 
         }

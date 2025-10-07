@@ -28,10 +28,10 @@ public class Paciente extends Pessoa{
     public void CarregarHistorico(){
 
         CSVConsulta csvConsulta = new CSVConsulta();
-        this.historicoConsultas = csvConsulta.buscarConsultasPorPaciente(getCPF());
+        this.historicoConsultas = csvConsulta.buscarConsultasPorPaciente(this.getCPF());
 
         CSVInternacao csvInternacao = new CSVInternacao();
-        this.historicoInternacoes = csvInternacao.BuscarInternacoesPorPaciente(getCPF());
+        this.historicoInternacoes = csvInternacao.BuscarInternacoesPorPaciente(this.getCPF());
 
     }
 

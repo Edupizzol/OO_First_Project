@@ -3,6 +3,7 @@ package Trabalho_OO;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 public class Consulta {
 
