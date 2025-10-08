@@ -17,7 +17,7 @@ public class CSVConsulta extends CSV_Geral{
 
         Consulta consulta= (Consulta) obj;
 
-        String File = "Consultas.csv";
+        String File = "Consultas.c  sv";
 
         try(BufferedReader Check = new BufferedReader(new FileReader(File))){
 

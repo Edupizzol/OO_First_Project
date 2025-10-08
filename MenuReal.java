@@ -3,7 +3,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
 import java.util.Scanner;
 
 public class MenuReal extends Menu{
@@ -46,6 +45,21 @@ public class MenuReal extends Menu{
         else if(N==7){
 
             AgendarInternacao();
+
+        }
+        else if(N==8){
+
+            CadastrarDiagnóstico();
+
+        }
+        else if(N==9){
+
+            ShowDiagnosticos();
+
+        }
+        else if(N==10){
+
+            Deletar();
 
         }
 
@@ -470,6 +484,139 @@ public class MenuReal extends Menu{
         else{
 
             System.out.println("Leito já Ocupado!");
+
+        }
+
+    }
+
+    private void CadastrarDiagnóstico(){
+
+        System.out.println("Informe o Tipo de Consulta:");
+        String TipoConsulta = sc.nextLine();
+
+        System.out.println("Informe o Nome do Paciente:");
+        String Nome = sc.nextLine();
+
+        System.out.println("Informe o Nome do Médico que Realizou o Disagnóstico:");
+        String NomeMedico = sc.nextLine();
+
+        System.out.println("Informe a Descrição do Diagnóstico:");
+        String Descricao = sc.nextLine();
+
+        Diagnostico diagnostico = new Diagnostico(TipoConsulta,Nome,NomeMedico,Descricao);
+
+        DiagnosticoCSV diagnosticoCSV = new DiagnosticoCSV();
+        diagnosticoCSV.SalvarCSV(diagnostico);
+
+        System.out.println("Diagnóstico Cadastrado!");
+
+    }
+
+    private void ShowDiagnosticos(){
+
+        DiagnosticoCSV diagnosticoCSV = new DiagnosticoCSV();
+
+        System.out.println("=======Lista de Diagnósticos=======");
+
+        for(Diagnostico diagnostico : diagnosticoCSV.MostrarDiagnosticos()){
+
+            System.out.printf(
+
+                    "Tipo da Consulta: %s\nNome do Paciente: %s\nNome do Médico: %s\n Descrição da Consulta: %s\n\n",
+
+                    diagnostico.getTipoConsulta(),
+                    diagnostico.getNomePaciente(),
+                    diagnostico.getNomeMedico(),
+                    diagnostico.getDescricao()
+
+            );
+
+        }
+
+    }
+
+    private void Deletar(){
+
+        System.out.println("Escolha o tipo de registro para deletar:");
+        System.out.println("1: Paciente");
+        System.out.println("2: Médico");
+        System.out.println("3: Consulta");
+        System.out.println("4: Internação");
+
+        int Num = sc.nextInt();
+
+        if(Num == 1){
+
+            System.out.println("Informe o CPF a ser Deletado:");
+
+            String CPF = sc.nextLine();
+
+            DeletarCSV.REMOVE("Pacientes.csv", linha -> {
+
+                String[] campos = linha.split(";");
+                return campos.length >= 2 && campos[1].equals(CPF);
+
+            });
+        }
+        else if(Num==2){
+
+            System.out.println("Informe o Nome do Médico a Ser Deletado:");
+
+            String Nome = sc.nextLine();
+
+            DeletarCSV.REMOVE("Medicos.csv", linha -> {
+
+                String[] campos = linha.split(";");
+                return campos.length >= 1 && campos[0].startsWith(Nome);
+
+            });
+
+        }
+        else if(Num==3){
+
+            System.out.println("Informe o Nome do Médico:");
+
+            String NomeMedico = sc.nextLine();
+
+            System.out.println("Informe o CPF do Paciente:");
+
+            String CPF = sc.nextLine();
+
+            System.out.println("Informe a Data da Consulta:");
+
+            System.out.println("Informe a Data da Consulta Ano-Mês-Dia:");
+
+            String dataConsulta = sc.nextLine();
+
+            DeletarCSV.REMOVE("Consultas.csv", linha -> {
+
+                String[] campos = linha.split(";");
+                return campos.length >= 7 &&
+                        campos[1].equals(NomeMedico) &&
+                        campos[2].equals(CPF) &&
+                        campos[5].equals(dataConsulta);
+
+            });
+
+        }
+        else if(Num==4){
+
+            System.out.println("Informe o CPF do Paciente da Internação:");
+
+            String CPF = sc.nextLine();
+
+            System.out.println("Informe a Data de Entrada da Internação Ano-Mês-Dia:");
+
+            String dataEntrada = sc.nextLine();
+
+            DeletarCSV.REMOVE("Internacoes.csv", linha -> {
+
+                String[] campos = linha.split(";");
+                return campos.length >= 3 &&
+                        campos[1].equals(CPF) &&
+                        campos[2].equals(dataEntrada);
+
+            });
 
         }
 

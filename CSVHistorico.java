@@ -119,8 +119,11 @@ public class CSVHistorico extends CSV_Geral{
                 }
             }
 
-        } catch (IOException e) {
+        }
+        catch (IOException e){
+
             System.out.println("Erro ao Ler Arquivo: " + e.getMessage());
+
         }
 
         return historico;
