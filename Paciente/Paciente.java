@@ -1,18 +1,25 @@
-package Trabalho_OO;
+package Trabalho_OO.Paciente;
+
+import Trabalho_OO.Pessoa;
+import Trabalho_OO.Consultas.Consulta;
+import Trabalho_OO.Consultas.CSVConsulta;
+import Trabalho_OO.Internacoes.Internacao;
+import Trabalho_OO.Internacoes.CSVInternacao;
+import Trabalho_OO.PlanoDeSaude.PlanoDeSaude;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class Paciente extends Pessoa{
+public class Paciente extends Pessoa {
 
-    private PlanoDeSaude PlanoDeSaude;
+    PlanoDeSaude PlanoDeSaude;
     private String TipoSanguineo;
     private double Altura;
     private double Peso;
     private List<Consulta> historicoConsultas;
     private List<Internacao> historicoInternacoes;
 
-    Paciente(String Nome, String CPF, int Idade, String Genero, String Telefone, String Estado_Civil, String TipoSanguineo, PlanoDeSaude PlanoDeSaude, double Altura, double Peso){
+    public Paciente(String Nome, String CPF, int Idade, String Genero, String Telefone, String Estado_Civil, String TipoSanguineo, PlanoDeSaude PlanoDeSaude, double Altura, double Peso){
 
         super(Nome, CPF, Idade, Genero, Telefone, Estado_Civil);
 
@@ -71,7 +78,7 @@ public class Paciente extends Pessoa{
 
     }
 
-    void ShowPaciente(){
+    public void ShowPaciente(){
 
         System.out.println("===Dados do Paciente===");
         System.out.printf("Nome: %s\n", getNome());

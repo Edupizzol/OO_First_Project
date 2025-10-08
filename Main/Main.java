@@ -1,5 +1,7 @@
-package Trabalho_OO;
+package Trabalho_OO.Main;
 
+import Trabalho_OO.Main.MenuReal;
+import Trabalho_OO.Main.Menu;
 import java.time.LocalTime;
 import java.util.Scanner;
 

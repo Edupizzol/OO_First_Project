@@ -1,11 +1,28 @@
-package Trabalho_OO;
+package Trabalho_OO.Consultas;
 
-import java.io.*;
+import Trabalho_OO.CSVGerais.CSV_Geral;
+import Trabalho_OO.Medico.CSVMedico;
+import Trabalho_OO.Medico.Medico;
+import Trabalho_OO.Paciente.CSVPaciente;
+import Trabalho_OO.Paciente.Paciente;
+import Trabalho_OO.PlanoDeSaude.CSVPlanoDeSaude;
+import Trabalho_OO.PlanoDeSaude.PlanoDeSaude;
+import java.io.FileNotFoundException;
+
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-public class CSVHistorico extends CSV_Geral{
+
+
+
+public class CSVHistorico extends CSV_Geral {
 
     @Override
     public void SalvarCSV(Object obj) {

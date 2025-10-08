@@ -1,8 +1,13 @@
-package Trabalho_OO;
+package Trabalho_OO.Paciente;
+
+import Trabalho_OO.CSVGerais.CSV_Geral;
+import Trabalho_OO.PlanoDeSaude.PlanoDeSaude;
+import Trabalho_OO.PlanoDeSaude.CSVPlanoDeSaude;
+import Trabalho_OO.Paciente.Paciente;
 
 import java.io.*;
 
-public class CSVPaciente extends CSV_Geral{
+public class CSVPaciente extends CSV_Geral {
 
     @Override
     public void SalvarCSV(Object obj) {
@@ -57,7 +62,7 @@ public class CSVPaciente extends CSV_Geral{
                             Paciente.getTelefone() + ";" +
                             Paciente.getEstadoCivil() + ";" +
                             Paciente.getTipoSanguineo() + ";" +
-                            Paciente.getPlanoDeSaude() + ";" +
+                            Paciente.getPlanoDeSaude().getNome() + ";" +
                             Paciente.getAltura() + ";" +
                             Paciente.getPeso() + "\n");
 

@@ -1,16 +1,22 @@
-package Trabalho_OO;
+package Trabalho_OO.Consultas;
+
+import Trabalho_OO.CSVGerais.CSV_Geral;
+import Trabalho_OO.Medico.Medico;
+import Trabalho_OO.Paciente.Paciente;
+import Trabalho_OO.PlanoDeSaude.PlanoDeSaude;
+
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletionService;
-import java.lang.Math;
 
-public class CSVConsulta extends CSV_Geral{
+public class CSVConsulta extends CSV_Geral {
 
     @Override
     public void SalvarCSV(Object obj) {

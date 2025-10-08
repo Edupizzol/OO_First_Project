@@ -1,4 +1,4 @@
-package Trabalho_OO;
+package Trabalho_OO.Diagnosticos;
 
 public class Diagnostico {
 
@@ -7,7 +7,7 @@ public class Diagnostico {
     private String nomeMedico;
     private String descricao;
 
-    Diagnostico(String tipoConsulta, String nomePaciente, String nomeMedico, String descricao) {
+    public Diagnostico(String tipoConsulta, String nomePaciente, String nomeMedico, String descricao) {
 
 
         this.tipoConsulta = tipoConsulta;

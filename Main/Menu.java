@@ -1,4 +1,4 @@
-package Trabalho_OO;
+package Trabalho_OO.Main;
 
 public abstract class Menu {
 

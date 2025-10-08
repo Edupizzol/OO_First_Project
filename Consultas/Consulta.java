@@ -1,9 +1,9 @@
-package Trabalho_OO;
-
+package Trabalho_OO.Consultas;
+import Trabalho_OO.Paciente.Paciente;
+import Trabalho_OO.Medico.Medico;
+import Trabalho_OO.PlanoDeSaude.PlanoDeSaude;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
 
 public class Consulta {
 
@@ -15,7 +15,7 @@ public class Consulta {
     private LocalDate data;
     private LocalTime horario;
 
-    Consulta(String TipoConsulta, Paciente paciente, Medico medico, double Preço, PlanoDeSaude planoDeSaude, LocalDate data, LocalTime horario){
+    public Consulta(String TipoConsulta, Paciente paciente, Medico medico, double Preço, PlanoDeSaude planoDeSaude, LocalDate data, LocalTime horario){
 
         this.TipoConsulta = TipoConsulta;
         this.paciente = paciente;

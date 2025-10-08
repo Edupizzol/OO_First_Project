@@ -1,4 +1,4 @@
-package Trabalho_OO;
+package Trabalho_OO.CSVGerais;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;

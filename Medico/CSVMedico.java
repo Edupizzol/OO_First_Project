@@ -1,11 +1,11 @@
-package Trabalho_OO;
-
+package Trabalho_OO.Medico;
+import Trabalho_OO.CSVGerais.CSV_Geral;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class CSVMedico extends CSV_Geral{
+public class CSVMedico extends CSV_Geral {
 
     @Override
     public void SalvarCSV(Object obj) {

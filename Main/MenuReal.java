@@ -1,9 +1,30 @@
-package Trabalho_OO;
+package Trabalho_OO.Main;
+import Trabalho_OO.CSVGerais.DeletarCSV;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+
+import Trabalho_OO.Paciente.Paciente;
+import Trabalho_OO.Paciente.CSVPaciente;
+import Trabalho_OO.Paciente.PacienteEspecial;
+
+import Trabalho_OO.Medico.Medico;
+import Trabalho_OO.Medico.CSVMedico;
+
+import Trabalho_OO.PlanoDeSaude.PlanoDeSaude;
+import Trabalho_OO.PlanoDeSaude.CSVPlanoDeSaude;
+
+import Trabalho_OO.Consultas.Consulta;
+import Trabalho_OO.Consultas.CSVConsulta;
+
+import Trabalho_OO.Internacoes.Internacao;
+import Trabalho_OO.Internacoes.CSVInternacao;
+
+import Trabalho_OO.Diagnosticos.Diagnostico;
+import Trabalho_OO.Diagnosticos.DiagnosticoCSV;
 
 public class MenuReal extends Menu{
 

@@ -1,4 +1,4 @@
-package Trabalho_OO;
+package Trabalho_OO.CSVGerais;
 
 public abstract class CSV_Geral {
 

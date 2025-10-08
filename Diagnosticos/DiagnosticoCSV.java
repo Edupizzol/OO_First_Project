@@ -1,8 +1,9 @@
-package Trabalho_OO;
+package Trabalho_OO.Diagnosticos;
+import Trabalho_OO.CSVGerais.CSV_Geral;
 import java.io.*;
 import java.util.ArrayList;
 
-public class DiagnosticoCSV extends CSV_Geral{
+public class DiagnosticoCSV extends CSV_Geral {
 
     @Override
     public void SalvarCSV(Object obj){

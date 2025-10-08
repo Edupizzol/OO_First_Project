@@ -1,4 +1,7 @@
-package Trabalho_OO;
+package Trabalho_OO.Internacoes;
+import Trabalho_OO.Medico.Medico;
+import Trabalho_OO.Paciente.Paciente;
+
 import java.time.LocalDate;
 
 public class Internacao {
@@ -11,7 +14,7 @@ public class Internacao {
     private String Quarto;
     private double CustoInternação;
 
-    Internacao(Paciente paciente, Medico medicoResponsável, LocalDate DataDeEntrada, LocalDate DataDeSaída, String Status, String Quarto, double CustoInternação){
+    public Internacao(Paciente paciente, Medico medicoResponsável, LocalDate DataDeEntrada, LocalDate DataDeSaída, String Status, String Quarto, double CustoInternação){
 
         this.paciente = paciente;
         this.medicoResponsável = medicoResponsável;

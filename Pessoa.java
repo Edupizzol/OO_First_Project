@@ -11,7 +11,7 @@ public class Pessoa{
     private String Telefone;
     private String EstadoCivil;
 
-    Pessoa(String Nome, String CPF, int Idade, String Genero, String Telefone, String Estado_Civil){
+    public Pessoa(String Nome, String CPF, int Idade, String Genero, String Telefone, String Estado_Civil){
 
         this.Nome = Nome;
         this.CPF = CPF;

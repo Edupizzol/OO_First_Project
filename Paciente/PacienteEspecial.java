@@ -1,8 +1,10 @@
-package Trabalho_OO;
+package Trabalho_OO.Paciente;
+
+import Trabalho_OO.PlanoDeSaude.PlanoDeSaude;
 
 public class PacienteEspecial extends Paciente{
 
-    PacienteEspecial(String nome, String cpf, int idade){
+    public PacienteEspecial(String nome, String cpf, int idade){
 
         super(nome, cpf, idade, "", "", "", "", null, 0, 0);
 

@@ -1,15 +1,20 @@
-package Trabalho_OO;
+package Trabalho_OO.Medico;
+
+import Trabalho_OO.Consultas.Consulta;
+import Trabalho_OO.Consultas.CSVConsulta;
+import Trabalho_OO.Pessoa;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Medico extends Pessoa{
+public class Medico extends Pessoa {
 
     private String Especialidade;
     private String EmailProfissional;
     private String CRM;
     private List<Consulta> agendaConsultas;
 
-    Medico(String Nome, String CPF, int Idade, String Genero, String Telefone, String EstadoCivil, String Especialidade,  String CRM, String EmailProfissional){
+    public Medico(String Nome, String CPF, int Idade, String Genero, String Telefone, String EstadoCivil, String Especialidade,  String CRM, String EmailProfissional){
 
         super(Nome,CPF,Idade,Genero,Telefone,EstadoCivil);
 

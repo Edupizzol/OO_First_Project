@@ -1,11 +1,11 @@
-package Trabalho_OO;
+package Trabalho_OO.PlanoDeSaude;
 
 public class PlanoDeSaude {
 
     private String Nome;
     private double Desconto;
 
-    PlanoDeSaude(String Nome, double Desconto){
+    public PlanoDeSaude(String Nome, double Desconto){
 
         this.Nome = Nome;
         this.Desconto = Desconto;
