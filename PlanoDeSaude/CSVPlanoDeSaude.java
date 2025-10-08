@@ -17,6 +17,24 @@ public class CSVPlanoDeSaude extends CSV_Geral {
 
         String File = "PlanoDeSaude.csv";
 
+        File file = new File("PlanoDeSaude.csv");
+
+        if(!file.exists()){
+
+            try{
+
+                file.createNewFile();
+
+            }
+            catch (IOException e) {
+
+                System.out.println("Erro ao criar arquivo PlanoDeSaude.csv: " + e.getMessage());
+                return;
+
+            }
+
+        }
+
         try(BufferedReader Check = new BufferedReader(new FileReader(File))){
 
             String TextoTemp;

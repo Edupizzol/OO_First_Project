@@ -12,13 +12,11 @@ public class PlanoDeSaude {
 
     }
 
-
     public String getNome(){
 
         return Nome;
 
     }
-
 
     public double getDesconto(){
 

@@ -10,12 +10,27 @@ public class DiagnosticoCSV extends CSV_Geral {
 
         Diagnostico diagnostico = (Diagnostico) obj;
 
+        String File = "Diagnosticos.csv";
 
-        String file = "Diagnosticos.csv";
+        try{
+
+            java.io.File file = new java.io.File(File);
+
+            if(!file.exists()){
+
+                file.createNewFile();
+
+            }
+        }
+        catch(IOException e){
+
+            System.out.println("Erro ao criar arquivo: " + e.getMessage());
+
+        }
 
         try {
 
-            File Arquivo = new File(file);
+            File Arquivo = new File(File);
 
             if (!Arquivo.exists()) {
 
@@ -30,7 +45,7 @@ public class DiagnosticoCSV extends CSV_Geral {
 
         }
 
-        try(FileWriter CSV = new FileWriter(file,true)){
+        try(FileWriter CSV = new FileWriter(File,true)){
 
 
                 CSV.write(
@@ -56,6 +71,21 @@ public class DiagnosticoCSV extends CSV_Geral {
     public Object buscarCSV(String Nome) {
 
         String File = "Diagnosticos.csv";
+
+        File file = new File(File);
+
+        if(!file.exists()){
+            try{
+
+                file.createNewFile();
+
+            } catch (IOException e){
+
+                System.out.println("Erro ao criar arquivo Diagnosticos.csv: " + e.getMessage());
+                return null;
+
+            }
+        }
 
         try(BufferedReader Check = new BufferedReader(new FileReader(File))){
 
@@ -89,6 +119,24 @@ public class DiagnosticoCSV extends CSV_Geral {
         ArrayList<Diagnostico> diagnosticos = new ArrayList<>();
 
         String File = "Diagnosticos.csv";
+
+        File file = new File(File);
+
+        if(!file.exists()){
+
+            try{
+
+                file.createNewFile();
+
+            }
+            catch (IOException e){
+
+                System.out.println("Erro ao criar arquivo Diagnosticos.csv: " + e.getMessage());
+                return diagnosticos; // retorna lista vazia
+
+            }
+
+        }
 
         try(BufferedReader Check = new BufferedReader(new FileReader(File))){
 

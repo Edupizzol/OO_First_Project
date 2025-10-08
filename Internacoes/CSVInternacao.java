@@ -9,10 +9,7 @@ import Trabalho_OO.Medico.CSVMedico;
 import Trabalho_OO.CSVGerais.CSV_Geral;
 
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +22,22 @@ public class CSVInternacao extends CSV_Geral {
         Internacao internacao = (Internacao) obj;
 
         String File = "Internações.csv";
+
+        try{
+
+            java.io.File file = new java.io.File(File);
+
+            if(!file.exists()){
+
+                file.createNewFile();
+
+            }
+        }
+        catch(IOException e){
+
+            System.out.println("Erro ao criar arquivo: " + e.getMessage());
+
+        }
 
         try(BufferedReader check = new BufferedReader(new FileReader(File))){
 
@@ -102,6 +115,25 @@ public class CSVInternacao extends CSV_Geral {
 
         String File = "Internações.csv";
 
+        File file = new File(File);
+
+        if(!file.exists()){
+
+            try{
+
+                file.createNewFile();
+                return internacoes;
+
+            }
+            catch(IOException e){
+
+                System.out.println("Erro ao criar arquivo Internações.csv: " + e.getMessage());
+                return internacoes;
+
+            }
+
+        }
+
         try(BufferedReader Check = new BufferedReader(new FileReader(File))){
 
             String TextoTemp;
@@ -120,8 +152,7 @@ public class CSVInternacao extends CSV_Geral {
                     String Quarto = Find[5];
                     double Preco = Double.parseDouble(Find[6]);
 
-                    CSVPaciente csvPaciente = new CSVPaciente();
-                    Paciente paciente = (Paciente) csvPaciente.buscarCSV(CPFpaciente);
+                    Paciente paciente = new Paciente("", CPF, 0, "", "", "", "", null, 0, 0);
 
                     CSVMedico csvMedico = new CSVMedico();
                     Medico MedicoResponsavel = (Medico) csvMedico.buscarCSV(NomeMedicoResponsavel);
@@ -143,9 +174,28 @@ public class CSVInternacao extends CSV_Geral {
 
     }
 
-    public Boolean InternacaoPossivel(Internacao internacao){
+    public Boolean InternacaoPossivel(Internacao internacao, List<Internacao> internacoesMemoria){
 
         String File = "Internações.csv";
+
+        File file = new File(File);
+
+        if (!file.exists()){
+
+            try{
+
+                file.createNewFile();
+                return false;
+
+            }
+            catch (IOException e){
+
+                System.out.println("Erro ao criar arquivo Internações.csv: " + e.getMessage());
+                return false;
+
+            }
+
+        }
 
         try(BufferedReader Check = new BufferedReader(new FileReader(File))){
 
@@ -165,7 +215,7 @@ public class CSVInternacao extends CSV_Geral {
 
                         System.out.println("Esse Leito já Está Ocupado, não é Possível Marcar a Internação");
 
-                        return true;
+                        return false;
 
                     }
 
@@ -181,7 +231,22 @@ public class CSVInternacao extends CSV_Geral {
 
         }
 
-        return false;
+        for(Internacao i : internacoesMemoria){
+
+            if(i.getQuarto().equals(internacao.getQuarto())){
+
+                if(!(internacao.getDataDeSaída().isBefore(i.getDataDeEntrada()) || internacao.getDataDeEntrada().isAfter(i.getDataDeSaída()))){
+
+                    System.out.println("Esse Leito já Está Ocupado na memória, não é Possível Marcar a Internação");
+                    return false;
+
+                }
+
+            }
+
+        }
+
+        return true;
 
     }
 

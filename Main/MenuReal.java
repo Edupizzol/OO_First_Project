@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import Trabalho_OO.Paciente.Paciente;
@@ -157,7 +159,20 @@ public class MenuReal extends Menu{
 
         if (Idade < 12 || Idade > 60) {
 
-            paciente = new PacienteEspecial(paciente.getNome(), paciente.getCPF(), Idade);
+            paciente = new PacienteEspecial(
+
+                    paciente.getNome(),
+                    paciente.getCPF(),
+                    paciente.getIdade(),
+                    paciente.getGenero(),
+                    paciente.getTelefone(),
+                    paciente.getEstadoCivil(),
+                    paciente.getTipoSanguineo(),
+                    paciente.getPlanoDeSaude(),
+                    paciente.getAltura(),
+                    paciente.getPeso()
+
+            );
 
         }
         else if (paciente.getPlanoDeSaude() != null){
@@ -373,11 +388,11 @@ public class MenuReal extends Menu{
 
         Consulta consulta = new Consulta(TipoConsulta, paciente, medico, preço, planoDeSaude, data, horario);
 
-        double precoFinal = preço; // valor inicial
+        double precoFinal = preço;
 
-        if(paciente instanceof PacienteEspecial && planoDeSaude != null){
+        if(planoDeSaude != null){
 
-            precoFinal=consulta.Descontar();
+            precoFinal = consulta.Descontar();
             consulta.setPreço(precoFinal);
 
         }
@@ -386,7 +401,6 @@ public class MenuReal extends Menu{
         paciente.getHistoricoConsultas().add(consulta);
 
         CSVConsulta csvConsulta = new CSVConsulta();
-        csvConsulta.SalvarCSV(consulta);
 
         if(csvConsulta.ConsultaPossivel(consulta)==false){
 
@@ -403,17 +417,19 @@ public class MenuReal extends Menu{
 
     }
 
+    private List<Internacao> internacoesMemoria = new ArrayList<>();
+
     private void AgendarInternacao(){
 
         LocalDate dataEntrada = null;
         LocalDate dataSaida = null;
 
-        System.out.println("Informe o Nome do Paciente que Você Deseja Internar:");
+        System.out.println("Informe o CPF do Paciente que Você Deseja Internar:");
 
-        String Nome = sc.nextLine();
+        String CPF = sc.nextLine();
 
         CSVPaciente csvPaciente = new CSVPaciente();
-        Paciente paciente = (Paciente) csvPaciente.buscarCSV(Nome);
+        Paciente paciente = (Paciente) csvPaciente.buscarCSV(CPF);
 
         if(paciente == null){
 
@@ -493,10 +509,10 @@ public class MenuReal extends Menu{
 
         CSVInternacao csvInternacao = new CSVInternacao();
 
-        if(csvInternacao.InternacaoPossivel(internacao)==false){
+        if(csvInternacao.InternacaoPossivel(internacao, internacoesMemoria)){
 
             paciente.getHistoricoInternacoes().add(internacao);
-
+            internacoesMemoria.add(internacao);
             csvInternacao.SalvarCSV(internacao);
 
             System.out.println("Internação Cadastrada com Sucesso!");

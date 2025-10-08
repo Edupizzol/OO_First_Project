@@ -6,10 +6,7 @@ import Trabalho_OO.Paciente.Paciente;
 import Trabalho_OO.PlanoDeSaude.PlanoDeSaude;
 
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -23,7 +20,23 @@ public class CSVConsulta extends CSV_Geral {
 
         Consulta consulta= (Consulta) obj;
 
-        String File = "Consultas.c  sv";
+        String File = "Consultas.csv";
+
+        try{
+
+            java.io.File file = new java.io.File(File);
+
+            if(!file.exists()){
+
+                file.createNewFile();
+
+            }
+        }
+        catch(IOException e){
+
+            System.out.println("Erro ao criar arquivo: " + e.getMessage());
+
+        }
 
         try(BufferedReader Check = new BufferedReader(new FileReader(File))){
 
@@ -55,13 +68,21 @@ public class CSVConsulta extends CSV_Geral {
 
         try(FileWriter CSV = new FileWriter(File, true)){
 
+            String nomePlano = "";
+
+            if(consulta.getPlanoDeSaude() != null){
+
+                nomePlano = consulta.getPlanoDeSaude().getNome();
+
+            }
+
             CSV.write(
 
                     consulta.getTipoConsulta() + ";" +
                             consulta.getMedico().getNome() + ";" +
                             consulta.getPaciente().getCPF() + ";" +
                             consulta.getPreço() + ";" +
-                            consulta.getPlanoDeSaude().getNome() + ";" +
+                            nomePlano + ";" +
                             consulta.getData() + ";" +
                             consulta.getHorario() + "\n"
 
@@ -90,6 +111,24 @@ public class CSVConsulta extends CSV_Geral {
         List<Consulta> consultas = new ArrayList<>();
 
         String File = "Consultas.csv";
+
+        File file = new File(File);
+
+        if (!file.exists()){
+
+            try{
+
+                file.createNewFile();
+
+            }
+            catch(IOException e){
+
+                System.out.println("Erro ao criar arquivo Consultas.csv: " + e.getMessage());
+                return consultas;
+
+            }
+
+        }
 
         try (BufferedReader br = new BufferedReader(new FileReader(File))) {
 
@@ -129,6 +168,24 @@ public class CSVConsulta extends CSV_Geral {
 
         String File = "Consultas.csv";
 
+        File file = new File(File);
+
+        if (!file.exists()){
+
+            try{
+
+                file.createNewFile();
+
+            }
+            catch(IOException e){
+
+                System.out.println("Erro ao criar arquivo Consultas.csv: " + e.getMessage());
+                return consultas;
+
+            }
+
+        }
+
         try(BufferedReader Check = new BufferedReader(new FileReader(File))){
 
             String TextoTemp;
@@ -167,6 +224,24 @@ public class CSVConsulta extends CSV_Geral {
     public boolean ConsultaPossivel(Consulta consulta) {
 
         String File = "Consultas.csv";
+
+        File file = new File(File);
+
+        if (!file.exists()){
+
+            try{
+
+                file.createNewFile();
+
+            }
+            catch(IOException e){
+
+                System.out.println("Erro ao criar arquivo Consultas.csv: " + e.getMessage());
+                return false;
+
+            }
+
+        }
 
             try(BufferedReader Check = new BufferedReader(new FileReader(File))){
 
@@ -213,6 +288,5 @@ public class CSVConsulta extends CSV_Geral {
             return false;
 
     }
-
 
 }

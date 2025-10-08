@@ -16,16 +16,19 @@ public class CSVPaciente extends CSV_Geral {
 
         String File = "Pacientes.csv";
 
-        try {
+        try{
 
             java.io.File file = new java.io.File(File);
-            if (!file.exists()) {
+
+            if(!file.exists()){
+
                 file.createNewFile();
+
             }
         }
-        catch (IOException e){
+        catch(IOException e){
 
-            e.getMessage();
+            System.out.println("Erro ao criar arquivo: " + e.getMessage());
 
         }
 
@@ -53,6 +56,14 @@ public class CSVPaciente extends CSV_Geral {
 
         try (FileWriter CSV = new FileWriter("Pacientes.csv", true)) {
 
+            String nomePlano = "";
+
+            if(Paciente.getPlanoDeSaude() != null){
+
+                nomePlano = Paciente.getPlanoDeSaude().getNome();
+
+            }
+
             CSV.write(
 
                     Paciente.getNome() + ";" +
@@ -62,7 +73,7 @@ public class CSVPaciente extends CSV_Geral {
                             Paciente.getTelefone() + ";" +
                             Paciente.getEstadoCivil() + ";" +
                             Paciente.getTipoSanguineo() + ";" +
-                            Paciente.getPlanoDeSaude().getNome() + ";" +
+                            nomePlano + ";" +
                             Paciente.getAltura() + ";" +
                             Paciente.getPeso() + "\n");
 
@@ -99,8 +110,14 @@ public class CSVPaciente extends CSV_Geral {
                         double altura = Double.parseDouble(Find[8]);
                         double peso = Double.parseDouble(Find[9]);
 
-                        CSVPlanoDeSaude csvPlanoDeSaude = new CSVPlanoDeSaude();
-                        PlanoDeSaude planoDeSaude1 = (PlanoDeSaude) csvPlanoDeSaude.buscarCSV(planoDeSaude);
+                        PlanoDeSaude planoDeSaude1 = null;
+
+                        if(planoDeSaude != null && !planoDeSaude.isBlank()){
+
+                            CSVPlanoDeSaude csvPlanoDeSaude = new CSVPlanoDeSaude();
+                            planoDeSaude1 = (PlanoDeSaude) csvPlanoDeSaude.buscarCSV(planoDeSaude);
+
+                        }
 
                         Paciente paciente = new Paciente(nome, CPF, idade, genero, telefone, estadoCivil, tipoSanguineo, planoDeSaude1, altura, peso);
 

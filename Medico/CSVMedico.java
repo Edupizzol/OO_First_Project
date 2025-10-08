@@ -12,7 +12,25 @@ public class CSVMedico extends CSV_Geral {
 
         Medico Medico = (Medico) obj;
 
-        try (BufferedReader Check = new BufferedReader(new FileReader("Medicos.csv"))) {
+        String File = "Medicos.csv";
+
+        try{
+
+            java.io.File file = new java.io.File(File);
+
+            if(!file.exists()){
+
+                file.createNewFile();
+
+            }
+        }
+        catch(IOException e){
+
+            System.out.println("Erro ao criar arquivo: " + e.getMessage());
+
+        }
+
+        try (BufferedReader Check = new BufferedReader(new FileReader(File))) {
 
             String TextoTemp;
 
@@ -34,7 +52,7 @@ public class CSVMedico extends CSV_Geral {
             System.out.println("Algum Erro Aconteceu!");
         }
 
-        try (FileWriter CSV = new FileWriter("Medicos.csv", true)) {
+        try (FileWriter CSV = new FileWriter(File, true)) {
 
             CSV.write(
 
