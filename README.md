@@ -50,13 +50,13 @@ Link do Vídeo: https://youtu.be/ZsZX-NS_bsQ
 Prints da Execução:
 
 Menu Principal:
-![Menu Principal](Assets/menu_principal.png)
+<img width="1868" height="1007" alt="Captura de tela 2025-10-08 222145" src="https://github.com/user-attachments/assets/1f504d7f-2701-4665-957e-20c21a32672a" />
 
 Cadastro de Médico:
-![Cadastro de Médico](Assets/cadastro_medico.png)
+<img width="1868" height="971" alt="cadastro_medico png" src="https://github.com/user-attachments/assets/bfd2ee9a-63ac-4437-9328-5c6c5297bff4" />
 
 Relatório de Paciente:
-![Relatório de Paciente](Assets/relatorio_paciente.png)
+<img width="1858" height="964" alt="relatorio_paciente png" src="https://github.com/user-attachments/assets/47e6b8a0-cedb-432e-aacb-ebdfd8fa9ac3" />
 
 Observações:
 O projeto foi extremamente interessante, acho que a parte mais complexa foi organizar as classes para atuarem de forma harmônica entre si, como forma adicional, fiz a transposição dos dados de cada objeto para arquivos.csv. Também 
