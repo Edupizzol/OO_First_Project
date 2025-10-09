@@ -1,4 +1,4 @@
-EP1 Sistme Hospitalar - Orientação a Objetos
+EP1 Sistema Hospitalar - Orientação a Objetos
 
 Dados do Aluno
 - Nome completo: Eduardo Jesus Dal Pizzol  
@@ -13,35 +13,37 @@ Execução:
 java -cp bin com.seupacote.Main
 
 Organização de Pastas
-├── src/                 
-│   ├── Main    
-        ├── Main.java
-        ├── Menu.java
-        ├── MenuReal.java
-│   ├── CSVGerais
-        ├── CSV_Geral.java
-        ├── DeletarCSV.java
-│   ├── Consultas
-        ├── Consulta.java
-        ├── CSVConsulta.java
-│   ├── Diagnosticos
-        ├── Diagnostico.java
-        ├── DiagnosticoCSV.java
-│   ├── Internacoes
-        ├── Internacao.java
-        ├── CSVInternacao.java
-│   ├── Medico
-        ├── Medico.java
-        ├── CSVMedico.java
-│   ├── Paciente
-        ├── Paciente.java
-        ├── PacienteEspecial.java
-        ├── CSVPaciente.java
-│   ├── Pessoa.java
-│   └── PlanoDeSaude
-        ├── PlanoDeSaude.java
-        ├── CSVPlanoDeSaude.java
-└── bin/    
+```
+src/
+├── Main
+│ ├── Main.java
+│ ├── Menu.java
+│ └── MenuReal.java
+├── CSVGerais
+│ ├── CSV_Geral.java
+│ └── DeletarCSV.java
+├── Consultas
+│ ├── Consulta.java
+│ └── CSVConsulta.java
+├── Diagnosticos
+│ ├── Diagnostico.java
+│ └── DiagnosticoCSV.java
+├── Internacoes
+│ ├── Internacao.java
+│ └── CSVInternacao.java
+├── Medico
+│ ├── Medico.java
+│ └── CSVMedico.java
+├── Paciente
+│ ├── Paciente.java
+│ ├── PacienteEspecial.java
+│ └── CSVPaciente.java
+├── Pessoa.java
+└── PlanoDeSaude
+├── PlanoDeSaude.java
+└── CSVPlanoDeSaude.java
+bin/
+```
 
 Versão do Java Utilizada: java 21
 
