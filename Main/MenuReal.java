@@ -354,7 +354,7 @@ public class MenuReal extends Menu{
         CSVPlanoDeSaude csvPlanoDeSaude = new CSVPlanoDeSaude();
         PlanoDeSaude planoDeSaude = (PlanoDeSaude) csvPlanoDeSaude.buscarCSV(Nomep);
 
-        System.out.println("Informe a Data de Consulta:");
+        System.out.println("Informe a Data de Consulta(AAAA-MM-DD):");
 
         String Data = sc.nextLine();
 
@@ -370,7 +370,7 @@ public class MenuReal extends Menu{
 
         }
 
-        System.out.println("Informe o Horário da Consulta:");
+        System.out.println("Informe o Horário da Consulta (formato 24h HH:mm, ex: 14:30):");
 
         String Hora = sc.nextLine();
 
@@ -452,7 +452,7 @@ public class MenuReal extends Menu{
 
         }
 
-        System.out.println("Informe a Data de Entrada Da Internação:");
+        System.out.println("Informe a Data de Entrada Da Internação(AAAA-MM-DD):");
 
         String Data1 = sc.nextLine();
 
@@ -468,7 +468,7 @@ public class MenuReal extends Menu{
 
         }
 
-        System.out.println("Informe a Data de Saída Da Internação:");
+        System.out.println("Informe a Data de Saída Da Internação(AAAA-MM-DD):");
 
         String Data2 = sc.nextLine();
 
