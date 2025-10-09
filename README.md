@@ -50,13 +50,13 @@ Link do Vídeo: https://youtu.be/ZsZX-NS_bsQ
 Prints da Execução:
 
 Menu Principal:
-![Menu Principal](assets/menu_principal.png)
+![Menu Principal](Assets/menu_principal.png)
 
 Cadastro de Médico:
-![Cadastro de Médico](assets/cadastro_medico.png)
+![Cadastro de Médico](Assets/cadastro_medico.png)
 
 Relatório de Paciente:
-![Relatório de Paciente](assets/relatorio_paciente.png)
+![Relatório de Paciente](Assets/relatorio_paciente.png)
 
 Observações:
 O projeto foi extremamente interessante, acho que a parte mais complexa foi organizar as classes para atuarem de forma harmônica entre si, como forma adicional, fiz a transposição dos dados de cada objeto para arquivos.csv. Também 
